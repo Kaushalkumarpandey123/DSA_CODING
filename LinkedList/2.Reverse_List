@@ -1,2 +1,68 @@
-import java.util.*;
+// *** Linked List **
+// 1. Write a program to reverse the Linked List (iterative and recursive both)
 
+import java.util.Scanner;
+
+public class Reverse_linkedlist {
+
+    node1 head;
+    static class node1{
+        int data;
+        node1 next;
+        node1(int d) {
+            data = d;
+        }
+    }
+
+    public static void main(String [] args){
+         Reverse_linkedlist list = new Reverse_linkedlist();
+        Scanner in = new Scanner(System.in);
+        int choice,i,data,pos;
+        do {
+            System.out.print("\n insert the data : ");
+            data = in.nextInt();
+            insert_at_last(list,data);
+            System.out.print("Enter '1' to continue : ");
+            i=in.nextInt();
+        }while (i==1);
+        System.out.print("\nActual List : ");
+        print(list);
+        reverse_list(list);
+        System.out.print("\nReversed List : ");
+        print(list);
+    }
+
+    static void insert_at_last(Reverse_linkedlist list , int d){
+        node1 new_node = new node1(d);
+        new_node.next = null;
+        if(list.head == null)
+            list.head = new_node;
+        else{
+            node1 temp = list.head;
+            while (temp.next!=null)
+                temp=temp.next;
+            temp.next = new_node;
+        }
+    }
+
+    static void print(Reverse_linkedlist list) {
+        node1 temp = list.head;
+        while(temp!=null){
+            System.out.print(temp.data+" --> ");
+            temp = temp.next;
+        }
+        System.out.print("null\n");
+    }
+
+    static void reverse_list(Reverse_linkedlist list) {
+        node1 curr = list.head , prv=null,next=null;
+        while(curr!=null) {
+            next = curr.next;
+            curr.next = prv;
+            prv=curr;
+            curr=next;
+        }
+        list.head = prv;
+    }
+
+}
