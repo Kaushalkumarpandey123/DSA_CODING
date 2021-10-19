@@ -1,0 +1,168 @@
+import java.util.Scanner;
+
+public class Linked_List{
+
+    node head;
+    static class node {
+        int data;
+        node next;
+        node(int d) {
+            data = d;
+        }
+    }
+
+    public static void main(String [] args){
+        Linked_List list = new Linked_List();
+        Scanner in = new Scanner(System.in);
+       int choice,i,data,pos;
+       do {
+           System.out.println("\n1.insert at begining.");
+           System.out.println("2.insert at last.");
+           System.out.println("3.insert at position.");
+           System.out.println("4.delete from begining.");
+           System.out.println("5.delete from last.");
+           System.out.println("6.delete from position.");
+           System.out.println("7.update first node.");
+           System.out.println("8.update last node.");
+           System.out.println("9.update node at position.");
+           System.out.println("10.Print the list.");
+           System.out.print("Enter your choice : ");
+           choice=in.nextInt();
+           switch (choice){
+               case 1:
+                   System.out.print("Enter the element : ");
+                   data = in.nextInt();
+                   insert_at_bigning(list,data);
+                   break;
+               case 2:
+                   System.out.print("Enter the element : ");
+                   data = in.nextInt();
+                   insert_at_last(list,data);
+                   break;
+               case 3:
+                   System.out.print("Enter the element : ");
+                   data = in.nextInt();
+                   System.out.print("Enter the position : ");
+                   pos = in.nextInt();
+                   insert_at_position(list,data,pos);
+                   break;
+               case 4:
+                   delete_from_bigning(list);
+                   break;
+               case 5:
+                   delete_from_last(list);
+                   break;
+               case 6:
+                   System.out.print("Enter the position : ");
+                   pos = in.nextInt();
+                   delete_from_position(list,pos);
+                   break;
+               case 7:
+                   System.out.print("Enter the element : ");
+                   data = in.nextInt();
+                   update_first_node(list,data);
+                   break;
+               case 8:
+                   System.out.print("Enter the element : ");
+                   data = in.nextInt();
+                   update_last_node(list,data);
+                   break;
+               case 9:
+                   System.out.print("Enter the position : ");
+                   pos = in.nextInt();
+                   System.out.print("Enter the element : ");
+                   data = in.nextInt();
+                   update_at_position(list,pos,data);
+                   break;
+               case 10:
+                   print(list);
+                   break;
+               default:
+                   System.out.print("Please Enter valid choise..");
+           }
+           System.out.print("\nEnter '1' to continue : ");
+           i=in.nextInt();
+       }while (i==1);
+    }
+
+    static void print(Linked_List list) {
+        node temp = list.head;
+        System.out.print("Linked_List : ");
+        while(temp!=null){
+            System.out.print(temp.data+" --> ");
+            temp = temp.next;
+        }
+        System.out.print("null\n");
+    }
+
+    static void insert_at_bigning(Linked_List list , int d){
+        node new_node = new node(d);
+        node temp = list.head;
+        list.head = new_node;
+        new_node.next = temp;
+    }
+
+    static void insert_at_last(Linked_List list , int d){
+        node new_node = new node(d);
+        new_node.next = null;
+        if(list.head == null)
+            list.head = new_node;
+        else{
+            node temp = list.head;
+            while (temp.next!=null)
+                temp=temp.next;
+            temp.next = new_node;
+        }
+    }
+
+    static void insert_at_position(Linked_List list , int d, int p){
+      node new_node = new node(d);
+      node temp = list.head;
+      for(int i=0;i<p-1;i++)
+          temp = temp.next;
+      node t = temp.next;
+      temp.next = new_node;
+      new_node.next= t;
+    }
+
+    static void delete_from_bigning(Linked_List list){
+        list.head = list.head.next;
+    }
+
+    static void delete_from_last(Linked_List list){
+        if(list.head.next==null)
+            list.head = null;
+        else {
+            node temp = list.head;
+            while (temp.next.next != null)
+                temp = temp.next;
+            temp.next = null;
+        }
+    }
+
+    static void delete_from_position(Linked_List list,int p){
+        node temp = list.head;
+        for(int i=0;i<p-1;i++)
+           temp = temp.next;
+        temp.next=temp.next.next;
+    }
+
+    static void update_first_node(Linked_List list,int d){
+       list.head.data=d;
+    }
+
+    static void update_last_node(Linked_List list,int d){
+       node temp = list.head;
+       while (temp.next!=null)
+           temp=temp.next;
+       temp.data = d;
+    }
+
+    static void update_at_position(Linked_List list,int p,int d){
+        node temp = list.head;
+        for(int j=0;j<p;j++)
+            temp = temp.next;
+        temp.data = d;
+    }
+
+}
